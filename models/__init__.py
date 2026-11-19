@@ -1,2 +1,2 @@
-# Copyright (C) 2026 STeSI Consulting - Roberto Fichera
+# Copyright (C) 2026 Roberto Fichera
 from . import res_users

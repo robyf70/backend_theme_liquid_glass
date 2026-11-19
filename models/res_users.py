@@ -1,4 +1,4 @@
-# Copyright (C) 2026 STeSI Consulting - Roberto Fichera
+# Copyright (C) 2026 Roberto Fichera
 from odoo import fields, models
 
 

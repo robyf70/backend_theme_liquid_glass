@@ -1,5 +1,5 @@
 /** @odoo-module **/
-// Copyright (C) 2026 STeSI Consulting - Roberto Fichera
+// Copyright (C) 2026 Roberto Fichera
 
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";

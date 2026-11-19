@@ -29,8 +29,8 @@
         A modern, elegant glassmorphism design for Odoo backend
     """,
     # Derived from Cybrosys' Liquid Glass Backend Theme: original rights stay with Cybrosys (see NOTICE)
-    'author': 'Cybrosys Techno Solutions, STeSI Consulting',
-    'maintainer': 'STeSI Consulting',
+    'author': 'Cybrosys Techno Solutions, Roberto Fichera',
+    'maintainer': 'Roberto Fichera',
     'website': 'https://github.com/robyf70/backend_theme_liquid_glass',
     'license': 'LGPL-3',
     'depends': ['web', 'base'],

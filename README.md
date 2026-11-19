@@ -7,7 +7,7 @@ A glassmorphism backend theme for Odoo 19 (Community and Enterprise), with a per
 
 > **Derived work.** This theme is derived from the *Liquid Glass Backend Theme* by
 > [Cybrosys Techno Solutions](https://www.cybrosys.com) (© 2026 Cybrosys Technologies Pvt. Ltd., LGPL-3).
-> All original rights stay with Cybrosys. STeSI Consulting's changes are listed in
+> All original rights stay with Cybrosys. Roberto Fichera's changes are listed in
 > [`doc/RELEASE_NOTES.md`](doc/RELEASE_NOTES.md) and [`NOTICE`](NOTICE).
 
 ## Features
@@ -49,7 +49,7 @@ Each user picks *Dark* (default) or *Light* in *My Preferences > Theme Mode*.
 **Authors**
 
 * Cybrosys Techno Solutions — original theme
-* STeSI Consulting — modifications
+* Roberto Fichera — modifications
 
 **Contributors**
 
