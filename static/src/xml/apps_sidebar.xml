@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Named so backend_theme_liquid_glass_enterprise can t-call them from the Enterprise navbar -->
+    <t t-name="backend_theme_liquid_glass.AppsSidebar">
+        <!-- inert while closed: off-screen links must not be reachable with Tab or a screen reader -->
+        <div id="o_apps_sidebar" class="o_apps_sidebar" t-att-class="{ 'o_sidebar_open': sidebarState.isOpen }"
+             role="dialog" aria-modal="true" aria-labelledby="o_apps_sidebar_title"
+             t-att-inert="!sidebarState.isOpen" t-ref="appsSidebar"
+             t-on-keydown="onSidebarKeydown">
+            <div class="o_sidebar_header mb-4 d-flex align-items-center justify-content-between">
+                <h2 id="o_apps_sidebar_title" class="m-0 fw-bold">Applications</h2>
+                <button type="button" class="btn btn-link p-0 o_sidebar_close" t-on-click="closeSidebar"
+                        aria-label="Close" title="Close">
+                    <i class="fa fa-close fs-4" aria-hidden="true"/>
+                </button>
+            </div>
+            <ul class="o_sidebar_content row g-3 list-unstyled m-0">
+                <t t-foreach="menuService.getApps()" t-as="app" t-key="app.id">
+                    <li class="col-6">
+                        <a t-att-href="getMenuItemHref(app)"
+                           class="o_apps_sidebar_item d-flex flex-column align-items-center p-3 text-decoration-none"
+                           t-att-aria-current="app.id === menuService.getCurrentApp()?.id ? 'page' : false"
+                           t-on-click.prevent="() => this.onNavBarAppClick(app)">
+                            <div class="o_app_icon_container mb-2" aria-hidden="true">
+                                <img t-if="app.webIconData" t-att-src="app.webIconData" class="o_app_icon" alt=""/>
+                                <div t-else="" class="o_app_icon_placeholder d-flex align-items-center justify-content-center">
+                                    <i class="fa fa-th-large fs-2"/>
+                                </div>
+                            </div>
+                            <span class="o_app_name text-center fw-medium" t-esc="app.name"/>
+                        </a>
+                    </li>
+                </t>
+            </ul>
+        </div>
+        <div class="o_sidebar_overlay" t-if="sidebarState.isOpen" t-on-click="closeSidebar" aria-hidden="true"/>
+    </t>
+
+    <t t-name="backend_theme_liquid_glass.SidebarToggle">
+        <button type="button" class="btn o_navbar_sidebar_toggle" t-ref="sidebarToggle"
+                t-on-click="toggleSidebar"
+                aria-controls="o_apps_sidebar" t-att-aria-expanded="sidebarState.isOpen ? 'true' : 'false'"
+                aria-label="Applications" title="Applications">
+            <i class="fa fa-bars" aria-hidden="true"/>
+        </button>
+    </t>
+
+    <t t-inherit="web.NavBar" t-inherit-mode="extension">
+        <!-- Append the sidebar structure after the header -->
+        <xpath expr="//header" position="after">
+            <t t-call="backend_theme_liquid_glass.AppsSidebar"/>
+        </xpath>
+    </t>
+
+    <t t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension">
+        <!-- Replace the default apps menu button with a sidebar toggle -->
+        <!-- Preserving t-if="!isScopedApp" to avoid orphaning neighboring t-else -->
+        <xpath expr="//div[hasclass('o_navbar_apps_menu')]" position="replace">
+            <div t-if="!isScopedApp" class="o_navbar_apps_menu">
+                <t t-call="backend_theme_liquid_glass.SidebarToggle"/>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

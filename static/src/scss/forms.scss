@@ -1,0 +1,109 @@
+.o_content {
+    margin: 30px;
+}
+
+.o_form_statusbar {
+    @include glass-effect($glass-bg-light, $blur-light);
+    @include glass-border;
+    border-radius: $radius-md;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+
+    // Odoo outlines each step with a ::before chevron in these colours (white and
+    // its own teal by default): use the glass border, and none on the current step.
+    .o_statusbar_status {
+        --o-statusbar-border: #{$glass-border};
+        --o-statusbar-border-active: transparent;
+        --o-statusbar-background-hover: #{$hover-bg};
+        --o-statusbar-background-active: #{$primary-color};
+    }
+
+    .o_arrow_button {
+        // the theme's global button radius would round the chevrons
+        border-radius: 0 !important;
+        backdrop-filter: none !important;
+    }
+
+    .o_arrow_button.btn-secondary {
+        background: transparent !important;
+        color: $text-muted !important;
+
+        &:hover:not(:disabled),
+        &:focus-visible {
+            background: $hover-bg !important;
+            color: $text-white !important;
+        }
+    }
+
+    .o_arrow_button.btn-primary,
+    .o_arrow_button.o_arrow_button_current {
+        // same teal as the primary buttons: white text stays readable in both modes
+        background: $primary-gradient !important;
+        color: #fff !important;
+    }
+}
+
+.o_form_sheet_bg {
+    @include glass-effect($glass-bg-dark, $blur-heavy);
+    border: 2px solid $glass-border !important;
+    border-radius: $radius-xl;
+
+    .o_form_sheet {
+        @include glass-effect($glass-bg-medium, $blur-medium);
+        border: 2px solid $glass-border !important;
+        border-radius: $radius-xl;
+        margin: 20px;
+    }
+}
+
+.o_form_renderer {
+    @include glass-effect($glass-bg-dark, $blur-medium);
+    border-radius: $radius-sm;
+}
+
+.form-control {
+    border: $glass-border !important;
+    @include text-white-color;
+}
+
+.o_cell {
+    background: $glass-bg-dark !important;
+    @include glass-border;
+    border-radius: $radius-sm;
+    padding: 10px;
+
+    &:hover {
+        background: $glass-bg-light !important;
+        border: 1px solid $glass-border-light !important;
+    }
+}
+
+.o_notebook {
+    .nav-tabs {
+        @include transparent-bg;
+        border-bottom: transparent !important;
+
+        .nav-link {
+            color: $text-muted !important;
+            background: $glass-bg-light !important;
+            border-radius: $radius-sm;
+            margin-bottom: 18px;
+            margin-right: 18px;
+
+            &:hover {
+                @include text-white-color;
+                @include glass-effect($glass-bg-dark, $blur-medium);
+                @include glass-border;
+            }
+
+            &.active {
+                @include text-white-color;
+                @include glass-effect($glass-bg-medium, $blur-medium);
+            }
+        }
+    }
+}
+
+.o_form_uri {
+    color: $primary-text !important;
+}

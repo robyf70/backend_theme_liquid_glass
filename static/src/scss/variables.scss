@@ -1,0 +1,104 @@
+// Colours are CSS custom properties so each user's mode (res.users.liquid_glass_mode,
+// rendered as body.o_lg_light) can swap them at runtime. The SCSS names stay as aliases.
+:root {
+    --lg-bg-light: rgba(255, 255, 255, 0.15);
+    --lg-bg-medium: rgba(255, 255, 255, 0.10);
+    --lg-bg-dark: rgba(255, 255, 255, 0.08);
+    --lg-bg-darker: rgba(255, 255, 255, 0.05);
+    --lg-dropdown: rgba(55, 63, 72, 0.94);
+    --lg-solid: rgb(32, 38, 48);
+    --lg-border: rgba(255, 255, 255, 0.18);
+    --lg-border-light: rgba(255, 255, 255, 0.25);
+    --lg-primary: rgb(6, 190, 160);
+    --lg-primary-text: rgb(45, 212, 191);
+    --lg-primary-gradient: linear-gradient(90deg, rgb(4, 120, 101), rgb(6, 100, 88));
+    --lg-hover-bg: rgba(255, 255, 255, 0.18);
+    --lg-focus-ring: rgb(94, 234, 212);
+    --lg-text: #ffffff;
+    --lg-text-muted: rgba(255, 255, 255, 0.72);
+    --lg-text-hover: rgba(255, 255, 255, 0.85);
+    --lg-scrollbar: rgba(255, 255, 255, 0.25);
+    --lg-btn-close-filter: invert(1);
+    --lg-bg-image: url("/backend_theme_liquid_glass/static/src/img/bg-img.svg");
+    --lg-bg-color: #000511;
+}
+
+body.o_lg_light {
+    --lg-bg-light: rgba(255, 255, 255, 0.62);
+    --lg-bg-medium: rgba(255, 255, 255, 0.52);
+    --lg-bg-dark: rgba(255, 255, 255, 0.42);
+    --lg-bg-darker: rgba(255, 255, 255, 0.32);
+    --lg-dropdown: rgba(255, 255, 255, 0.96);
+    --lg-solid: #ffffff;
+    --lg-border: rgba(15, 23, 42, 0.12);
+    --lg-border-light: rgba(15, 23, 42, 0.18);
+    --lg-primary: rgb(4, 128, 108);
+    --lg-primary-text: rgb(4, 110, 93);
+    --lg-primary-gradient: linear-gradient(90deg, rgb(4, 128, 108), rgb(6, 112, 96));
+    --lg-hover-bg: rgba(15, 23, 42, 0.07);
+    --lg-focus-ring: rgb(4, 110, 93);
+    --lg-text: #1e293b;
+    --lg-text-muted: #475569;
+    --lg-text-hover: #0f172a;
+    --lg-scrollbar: rgba(15, 23, 42, 0.25);
+    --lg-btn-close-filter: none;
+    --lg-bg-image: linear-gradient(135deg, #e0f2f1 0%, #eef2ff 45%, #fdf2f8 100%);
+    --lg-bg-color: #eef2f7;
+}
+
+$glass-bg-light: var(--lg-bg-light);
+$glass-bg-medium: var(--lg-bg-medium);
+$glass-bg-dark: var(--lg-bg-dark);
+$glass-bg-darker: var(--lg-bg-darker);
+$glass-dropdown: var(--lg-dropdown);
+$glass-solid: var(--lg-solid);
+$glass-border: var(--lg-border);
+$glass-border-light: var(--lg-border-light);
+
+$blur-light: 30px;
+$blur-medium: 35px;
+$blur-heavy: 40px;
+
+$primary-color: var(--lg-primary);
+$primary-text: var(--lg-primary-text);
+$primary-gradient: var(--lg-primary-gradient);
+$hover-bg: var(--lg-hover-bg);
+$focus-ring: var(--lg-focus-ring);
+
+$text-white: var(--lg-text);
+$text-muted: var(--lg-text-muted);
+$text-hover: var(--lg-text-hover);
+
+$radius-sm: 12px;
+$radius-md: 18px;
+$radius-lg: 22px;
+$radius-xl: 26px;
+$radius-pill: 999px;
+
+$shadow-medium: 0 10px 40px rgba(0, 0, 0, 0.4);
+$shadow-heavy: 0 20px 70px rgba(0, 0, 0, 0.5);
+
+$transition-base: all 0.25s ease;
+
+@mixin glass-effect($bg, $blur) {
+    background: $bg !important;
+    backdrop-filter: blur($blur) saturate(180%) !important;
+}
+
+@mixin glass-border($color: $glass-border) {
+    border: 1px solid $color !important;
+}
+
+@mixin glass-card($bg: $glass-bg-light, $blur: $blur-medium) {
+    @include glass-effect($bg, $blur);
+    @include glass-border;
+    border-radius: $radius-xl;
+}
+
+@mixin transparent-bg {
+    background: transparent !important;
+}
+
+@mixin text-white-color {
+    color: $text-white !important;
+}

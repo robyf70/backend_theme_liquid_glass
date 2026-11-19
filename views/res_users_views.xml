@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_users_form_simple_modif_liquid_glass" model="ir.ui.view">
+        <field name="name">res.users.preferences.form.liquid_glass</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='other_preferences']" position="inside">
+                <field name="liquid_glass_mode" widget="radio" options="{'horizontal': true}" readonly="0"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_users_form_liquid_glass" model="ir.ui.view">
+        <field name="name">res.users.form.liquid_glass</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='other_preferences']" position="inside">
+                <field name="liquid_glass_mode" widget="radio" options="{'horizontal': true}" invisible="share"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- The mode is a body class rendered server-side: no dark flash before JS runs -->
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//t[@t-set='body_classname']" position="attributes">
+            <attribute name="t-value">'o_web_client o_lg_light' if request.env.user.liquid_glass_mode == 'light' else 'o_web_client'</attribute>
+        </xpath>
+    </template>
+</odoo>

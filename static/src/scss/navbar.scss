@@ -1,0 +1,252 @@
+.o_navbar {
+    @include glass-effect($glass-bg-light, $blur-heavy);
+    @include glass-border;
+    border-radius: $radius-pill;
+    margin: 14px;
+    padding: 12px;
+
+    &:hover {
+        background: $glass-bg-dark !important;
+        @include glass-border;
+    }
+}
+
+.o_main_navbar {
+    @include transparent-bg;
+    border-bottom: transparent !important;
+    // Odoo paints every navbar entry (menus, debug, systray icons) through these;
+    // Enterprise sets them to gray-900, unreadable on the glass.
+    --NavBar-entry-color: #{$text-white};
+    --NavBar-entry-color--hover: #{$text-white};
+    --NavBar-entry-color--active: #{$text-white};
+    --NavBar-entry-backgroundColor: transparent;
+    --NavBar-entry-backgroundColor--hover: #{$hover-bg};
+    --NavBar-entry-backgroundColor--focus: #{$hover-bg};
+    --NavBar-entry-backgroundColor--active: #{$hover-bg};
+    --NavBar-entry-borderColor-active: transparent;
+
+    .o_menu_sections {
+        .o-dropdown,
+        .o_nav_entry {
+            @include transparent-bg;
+
+            &:hover {
+                background: $hover-bg !important;
+            }
+        }
+    }
+
+    .o_menu_toggle {
+        color: $text-white !important;
+    }
+
+    .o_navbar_apps_menu {
+        display: flex;
+        align-items: center;
+        align-self: center;
+    }
+}
+
+.o_navbar_sidebar_toggle {
+    @include glass-effect($glass-bg-light, $blur-light);
+    width: 34px;
+    height: 34px;
+    margin-right: 8px;
+    padding: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid $glass-border !important;
+    color: $text-white !important;
+    font-size: 16px;
+    transition: $transition-base;
+
+    &:hover {
+        background: $hover-bg !important;
+        transform: scale(1.05);
+    }
+}
+
+.o_apps_sidebar {
+    position: fixed;
+    top: 0;
+    left: -350px;
+    width: 350px;
+    max-width: 100vw;
+    height: 100vh;
+    z-index: 1050;
+    padding: 30px 20px;
+    transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
+    visibility: hidden;
+    @include glass-effect($glass-bg-medium, $blur-heavy);
+    border-right: 1px solid $glass-border-light !important;
+    box-shadow: $shadow-heavy;
+    overflow-y: auto;
+    border-radius: 0 30px 30px 0;
+
+    // visible at once on open (so focus can land), hidden only after the slide-out
+    &.o_sidebar_open {
+        left: 0;
+        visibility: visible;
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .o_sidebar_header h2 {
+        @include text-white-color;
+        letter-spacing: 0.5px;
+        font-size: 24px;
+    }
+
+    .o_sidebar_close {
+        color: $text-white !important;
+        transition: $transition-base;
+
+        &:hover {
+            transform: rotate(90deg);
+            color: $primary-text !important;
+        }
+    }
+
+    .o_apps_sidebar_item {
+        border-radius: $radius-md;
+        transition: $transition-base;
+        background: transparent;
+
+        &:hover,
+        &[aria-current="page"] {
+            background: $hover-bg !important;
+        }
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: $shadow-medium;
+        }
+
+        .o_app_icon_container {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @include glass-effect($glass-bg-darker, $blur-light);
+            border-radius: $radius-lg;
+            @include glass-border;
+
+            .o_app_icon {
+                width: 54px;
+                height: 54px;
+                object-fit: contain;
+                filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+            }
+
+            .o_app_icon_placeholder {
+                color: $text-white;
+            }
+        }
+
+        .o_app_name {
+            @include text-white-color;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+    }
+}
+
+.o_sidebar_overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    z-index: 1040;
+}
+
+// Enterprise home menu (app dashboard): the focused/hovered tile and its label.
+.o_home_menu .o_app {
+    color: $text-white !important;
+
+    .o_caption {
+        color: $text-white !important;
+    }
+
+    &:hover,
+    &.o_focused {
+        background: $hover-bg !important;
+        box-shadow: none;
+    }
+
+    &.o_focused {
+        outline: 3px solid $focus-ring !important;
+        outline-offset: 2px;
+    }
+}
+
+// Command palette (the home menu search and Ctrl+K): Odoo gives the input a
+// white background, so the theme's white text vanished.
+.modal-content.o_command_palette {
+    background: $glass-dropdown !important;
+
+    .o_command_palette_search {
+        .o_namespace,
+        .o_command_palette_listbox_empty,
+        .oi-search,
+        .fa-circle-o-notch {
+            color: $text-white !important;
+        }
+
+        input {
+            background: transparent !important;
+            color: $text-white !important;
+            caret-color: $text-white;
+
+            &::placeholder {
+                color: $text-muted !important;
+                opacity: 1;
+            }
+        }
+    }
+
+    .o_command {
+        color: $text-white !important;
+
+        &.focused {
+            background: $hover-bg !important;
+            box-shadow: inset 4px 0 0 $focus-ring;
+        }
+
+        .o_command_hotkey,
+        kbd {
+            color: $text-white !important;
+            background: $glass-bg-light !important;
+            border-color: $glass-border !important;
+        }
+    }
+
+    .o_command_palette_footer {
+        background: $glass-bg-light !important;
+        color: $text-white !important;
+    }
+}
+
+// Keyboard focus visible everywhere the theme removed outlines (buttons set outline: none).
+a,
+button,
+.btn,
+.o_app,
+[tabindex]:not(input):not(textarea) {
+    &:focus-visible {
+        outline: 3px solid $focus-ring !important;
+        outline-offset: 2px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .o_apps_sidebar,
+    .o_apps_sidebar_item,
+    .o_navbar_sidebar_toggle,
+    .o_sidebar_close,
+    .o_kanban_record {
+        transition: none !important;
+        transform: none !important;
+    }
+}
