@@ -54,4 +54,4 @@ Each user picks *Dark* (default) or *Light* in *My Preferences > Theme Mode*.
 **Contributors**
 
 * Cybrosys Techno Solutions — odoo@cybrosys.com
-* Roberto Fichera — fichera.r@stesi.consulting
+* Roberto Fichera — roby.fichera@gmail.com
