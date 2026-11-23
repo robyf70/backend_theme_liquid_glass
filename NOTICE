@@ -13,7 +13,7 @@ Modifications:
 
 The modifications are listed in doc/RELEASE_NOTES.md (versions 19.0.1.0.2
 and later): Odoo Enterprise support, module renamed to
-backend_theme_liquid_glass, per-user light/dark mode, accessibility, and
+backend_theme_liquid_glass, per-user light/dark mode and color schemes, accessibility, and
 contrast fixes.
 
 Both the original work and the modifications are distributed under the

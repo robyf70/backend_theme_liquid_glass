@@ -38,3 +38,15 @@
 - Sidebar toggle vertically aligned with the other navbar entries
 - White text on primary buttons and the current status bar step in both modes
 - Status bar: no white / Odoo-teal chevron outlines (theme now sets `--o-statusbar-*`), square chevrons, rounded glass band
+
+#### 23.11.2026
+
+#### Version 19.0.1.2.0
+#### ADD
+- Per-user color schemes: `res.users.liquid_glass_scheme` (11 accessible presets), rendered as the `o_lg_scheme_<name>` body class; swatch picker with live preview in My Preferences and the user form
+- Graph views read the text colour of the palette and are redrawn when it changes
+- Tests: preferences, contrast of every scheme, picker tours, charts
+#### FIX
+- White text on accent backgrounds (button hover, badges, checked inputs) is at least 4.5:1 (new `--lg-primary-fill`)
+- Tags without a colour are readable in light mode (new `--lg-on-primary`)
+- Graph text is readable in light mode

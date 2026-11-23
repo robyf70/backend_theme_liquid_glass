@@ -21,7 +21,7 @@
 #############################################################################
 {
     'name': 'Liquid Glass Backend Theme',
-    'version': '19.0.1.1.0',
+    'version': '19.0.1.2.0',
     'category': 'Theme/Backend',
     'summary': 'Modern glassmorphism backend theme for Odoo',
     'description': """
@@ -57,6 +57,9 @@
         ],
         'web.assets_backend_lazy': [
             'backend_theme_liquid_glass/static/src/js/canvas_text.js',
+        ],
+        'web.assets_unit_tests': [
+            'backend_theme_liquid_glass/static/tests/*.test.js',
         ],
         'web.assets_tests': [
             'backend_theme_liquid_glass/static/tests/tours/*.js',
