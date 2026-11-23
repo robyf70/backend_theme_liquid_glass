@@ -8,6 +8,7 @@
             <xpath expr="//group[@name='other_preferences']" position="inside">
                 <field name="liquid_glass_mode" widget="radio" options="{'horizontal': true}" readonly="0"/>
                 <field name="liquid_glass_scheme" widget="liquid_glass_scheme" options="{'horizontal': true}" readonly="0"/>
+                <field name="liquid_glass_background" widget="liquid_glass_preview" options="{'horizontal': true}" readonly="0"/>
             </xpath>
         </field>
     </record>
@@ -20,6 +21,7 @@
             <xpath expr="//group[@name='other_preferences']" position="inside">
                 <field name="liquid_glass_mode" widget="radio" options="{'horizontal': true}" invisible="share"/>
                 <field name="liquid_glass_scheme" widget="liquid_glass_scheme" options="{'horizontal': true}" invisible="share"/>
+                <field name="liquid_glass_background" widget="liquid_glass_preview" options="{'horizontal': true}" invisible="share"/>
             </xpath>
         </field>
     </record>

@@ -15,22 +15,25 @@
     }
 }
 
-.o_field_liquid_glass_scheme .o_radio_input:not(:checked) {
-    border-color: $text-muted;
-}
+.o_field_liquid_glass_scheme,
+.o_field_liquid_glass_preview {
+    .o_radio_input:not(:checked) {
+        border-color: $text-muted;
+    }
 
-// Odoo removes the outline of its radios
-.o_field_liquid_glass_scheme .o_radio_input:focus-visible {
-    outline: 2px solid $focus-ring !important;
-    outline-offset: 2px;
-}
+    // Odoo removes the outline of its radios
+    .o_radio_input:focus-visible {
+        outline: 2px solid $focus-ring !important;
+        outline-offset: 2px;
+    }
 
-.o_field_liquid_glass_scheme .o_horizontal {
-    display: inline-flex;
-    flex-wrap: wrap;
+    .o_horizontal {
+        display: inline-flex;
+        flex-wrap: wrap;
 
-    .o_radio_item {
-        flex: 0 0 auto;
-        margin-right: 1.5rem;
+        .o_radio_item {
+            flex: 0 0 auto;
+            margin-right: 1.5rem;
+        }
     }
 }

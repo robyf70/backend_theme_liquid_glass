@@ -1,6 +1,8 @@
 # Copyright (C) 2026 Roberto Fichera
 from odoo import fields, models
 
+LIQUID_GLASS_FIELDS = ['liquid_glass_mode', 'liquid_glass_scheme', 'liquid_glass_background']
+
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
@@ -32,14 +34,21 @@ class ResUsers(models.Model):
         required=True,
         help="Accent colors of the Liquid Glass backend theme for this user.",
     )
+    liquid_glass_background = fields.Selection(
+        [('photo', "Photo"), ('gradient', "Gradient")],
+        string="Background",
+        default='photo',
+        required=True,
+        help="Dark mode background of the Liquid Glass backend theme for this user.",
+    )
 
     @property
     def SELF_READABLE_FIELDS(self):
-        return super().SELF_READABLE_FIELDS + ['liquid_glass_mode', 'liquid_glass_scheme']
+        return super().SELF_READABLE_FIELDS + LIQUID_GLASS_FIELDS
 
     @property
     def SELF_WRITEABLE_FIELDS(self):
-        return super().SELF_WRITEABLE_FIELDS + ['liquid_glass_mode', 'liquid_glass_scheme']
+        return super().SELF_WRITEABLE_FIELDS + LIQUID_GLASS_FIELDS
 
     def _liquid_glass_body_classes(self):
         """Body classes of the web client for this user's theme preferences."""
@@ -47,5 +56,7 @@ class ResUsers(models.Model):
         classes = ['o_web_client']
         if self.liquid_glass_mode == 'light':
             classes.append('o_lg_light')
+        if self.liquid_glass_background == 'gradient':
+            classes.append('o_lg_gradient')
         classes.append(f'o_lg_scheme_{self.liquid_glass_scheme}')
         return ' '.join(classes)

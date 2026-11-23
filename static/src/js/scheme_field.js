@@ -4,16 +4,19 @@ import { user } from "@web/core/user";
 import { registry } from "@web/core/registry";
 import { RadioField, radioField } from "@web/views/fields/radio/radio_field";
 import { onWillUnmount, useEffect } from "@odoo/owl";
-import { setScheme } from "./palette";
+import { setBackground, setScheme } from "./palette";
 
-// Last saved value, kept here because the field is unmounted and mounted again
-// with unsaved changes when the user moves between the pages of the form.
-let savedScheme;
+const APPLY = {
+    liquid_glass_scheme: setScheme,
+    liquid_glass_background: setBackground,
+};
 
-/** Radio with one swatch per scheme, previewed live on the user's own record. */
-export class SchemeField extends RadioField {
-    static template = "backend_theme_liquid_glass.SchemeField";
+// Last saved value of each preference, kept here because the field is unmounted and
+// mounted again with unsaved changes when the user moves between the pages of the form.
+const saved = {};
 
+/** Radio previewed live, when the record is the user's own. */
+export class PreviewRadioField extends RadioField {
     setup() {
         super.setup();
         useEffect(
@@ -22,15 +25,16 @@ export class SchemeField extends RadioField {
                     return;
                 }
                 if (!dirty) {
-                    savedScheme = value;
+                    saved[this.props.name] = value;
                 }
-                setScheme(value);
+                this.apply(value);
             },
             () => [this.isOwnRecord, this.value, this.props.record.dirty]
         );
         onWillUnmount(() => {
-            if (this.isOwnRecord && savedScheme) {
-                setScheme(this.props.record.dirty ? savedScheme : this.value);
+            const value = saved[this.props.name];
+            if (this.isOwnRecord && value) {
+                this.apply(this.props.record.dirty ? value : this.value);
             }
         });
     }
@@ -38,12 +42,24 @@ export class SchemeField extends RadioField {
     get isOwnRecord() {
         return this.props.record.resId === user.userId;
     }
+
+    apply(value) {
+        APPLY[this.props.name]?.(value);
+    }
 }
 
-export const schemeField = {
+/** Preview radio with one swatch per scheme. */
+export class SchemeField extends PreviewRadioField {
+    static template = "backend_theme_liquid_glass.SchemeField";
+}
+
+export const previewRadioField = {
     ...radioField,
-    component: SchemeField,
+    component: PreviewRadioField,
     supportedTypes: ["selection"],
 };
 
+export const schemeField = { ...previewRadioField, component: SchemeField };
+
+registry.category("fields").add("liquid_glass_preview", previewRadioField);
 registry.category("fields").add("liquid_glass_scheme", schemeField);

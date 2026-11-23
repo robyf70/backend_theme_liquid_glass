@@ -37,6 +37,12 @@ class TestPreferences(HttpCase):
                     self.assertIn(f'o_lg_scheme_{scheme}', classes)
                     self.assertEqual('o_lg_light' in classes, mode == 'light')
 
+    def test_background(self):
+        self.assertEqual(self.user.liquid_glass_background, 'photo')
+        self.assertNotIn('o_lg_gradient', self.user._liquid_glass_body_classes().split())
+        self.user.with_user(self.user).write({'liquid_glass_background': 'gradient'})
+        self.assertIn('o_lg_gradient', self.user._liquid_glass_body_classes().split())
+
     def test_bootstrap(self):
         self.user.liquid_glass_scheme = 'blue'
         self.authenticate('lg_user', 'lg_user')
@@ -45,5 +51,6 @@ class TestPreferences(HttpCase):
 
     def test_share_hidden(self):
         arch = self.env['res.users'].get_view(self.env.ref('base.view_users_form').id, 'form')['arch']
-        nodes = etree.fromstring(arch).xpath("//field[@name='liquid_glass_scheme']")
-        self.assertEqual([node.get('invisible') for node in nodes], ['share'])
+        for name in ('liquid_glass_mode', 'liquid_glass_background', 'liquid_glass_scheme'):
+            nodes = etree.fromstring(arch).xpath(f"//field[@name='{name}']")
+            self.assertEqual([node.get('invisible') for node in nodes], ['share'], name)

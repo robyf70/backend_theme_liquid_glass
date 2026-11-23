@@ -8,15 +8,25 @@ export const PALETTE_EVENT = "lg-palette-changed";
 
 const SCHEME_PREFIX = "o_lg_scheme_";
 
-export function setScheme(name) {
-    const { classList } = document.body;
-    const stale = [...classList].filter(
-        (cls) => cls.startsWith(SCHEME_PREFIX) && cls !== SCHEME_PREFIX + name
-    );
-    if (!stale.length && classList.contains(SCHEME_PREFIX + name)) {
-        return;
+function changeBody(update) {
+    const before = document.body.className;
+    update(document.body.classList);
+    if (document.body.className !== before) {
+        window.dispatchEvent(new Event(PALETTE_EVENT));
     }
-    classList.remove(...stale);
-    classList.add(SCHEME_PREFIX + name);
-    window.dispatchEvent(new Event(PALETTE_EVENT));
+}
+
+export function setScheme(name) {
+    changeBody((classList) => {
+        const current = SCHEME_PREFIX + name;
+        const stale = [...classList].filter(
+            (cls) => cls.startsWith(SCHEME_PREFIX) && cls !== current
+        );
+        classList.remove(...stale);
+        classList.add(current);
+    });
+}
+
+export function setBackground(value) {
+    changeBody((classList) => classList.toggle("o_lg_gradient", value === "gradient"));
 }

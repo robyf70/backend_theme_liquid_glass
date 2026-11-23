@@ -106,14 +106,16 @@ class TestContrast(TransactionCase):
                 rules.setdefault(selector.strip(), {}).update(declarations)
         return rules
 
-    def palette(self, scheme, light=False):
+    def palette(self, scheme, light=False, gradient=False):
         """Custom properties on the body, in cascade order (the base palette is teal)."""
         selectors = [':root', f'body.o_lg_scheme_{scheme}']
+        if gradient:
+            selectors.append(f'body.o_lg_gradient.o_lg_scheme_{scheme}')
         if light:
             selectors += ['body.o_lg_light', f'body.o_lg_light.o_lg_scheme_{scheme}']
         palette = {}
         for selector in selectors:
-            if scheme != 'teal':
+            if scheme != 'teal' or 'gradient' in selector:
                 self.assertIn(selector, self.rules)
             palette.update(self.rules.get(selector, {}))
         return palette
@@ -166,6 +168,26 @@ class TestContrast(TransactionCase):
             light = self.rules.get(f'body.o_lg_light.o_lg_scheme_{scheme}', {})
             self.assertTrue(dark, scheme)
             self.assertFalse(set(dark) - set(light), scheme)
+
+    def test_white_on_gradient_background(self):
+        for scheme in self.schemes:
+            with self.subTest(scheme=scheme):
+                stops = colors(self.palette(scheme, gradient=True)['--lg-bg-image'])
+                self.assertEqual(len(stops), 3)
+                for stop in stops:
+                    self.assertContrast('white', stop)
+
+    def test_light_background_ignores_the_choice(self):
+        for scheme in self.schemes:
+            with self.subTest(scheme=scheme):
+                self.assertEqual(
+                    self.palette(scheme, light=True, gradient=True)['--lg-bg-image'],
+                    self.palette(scheme, light=True)['--lg-bg-image'])
+                # same or lower specificity than the light rule, and before it
+                dark = f'body.o_lg_gradient.o_lg_scheme_{scheme}'
+                light = f'body.o_lg_light.o_lg_scheme_{scheme}'
+                self.assertIn('--lg-bg-image', self.rules[light])
+                self.assertLess(self.css.index(dark), self.css.index(light))
 
     def test_teal_is_unchanged(self):
         for light, expected, on_primary in ((False, TEAL_DARK, '#000000'), (True, TEAL_LIGHT, '#ffffff')):

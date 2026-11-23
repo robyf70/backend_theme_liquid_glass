@@ -76,18 +76,36 @@ $lg-schemes: (
     --lg-focus-ring: #{$accent};
 }
 
+// Dark mode "Gradient" background: before the light rules, which win over it
+@each $name, $colors in $lg-schemes {
+    $fill: nth($colors, 1);
+
+    body.o_lg_gradient.o_lg_scheme_#{$name} {
+        --lg-bg-image: linear-gradient(135deg, #{mix($fill, #000511, 45%)} 0%, #000511 60%, #{mix($fill, #000511, 25%)} 100%);
+    }
+}
+
+// Light values of a scheme. Teal only repeats its background, to win over its gradient.
+@mixin lg-light-scheme($name, $colors) {
+    $fill: nth($colors, 1);
+    $start: #e0f2f1;
+
+    @if $name != teal {
+        $start: mix($fill, white, 12%);
+        @include lg-scheme-colors($fill, nth($colors, 3));
+    }
+    --lg-bg-image: linear-gradient(135deg, #{$start} 0%, #eef2ff 45%, #fdf2f8 100%);
+}
+
 @each $name, $colors in $lg-schemes {
     @if $name != teal {
-        $fill: nth($colors, 1);
-
         body.o_lg_scheme_#{$name} {
-            @include lg-scheme-colors($fill, nth($colors, 2));
+            @include lg-scheme-colors(nth($colors, 1), nth($colors, 2));
         }
+    }
 
-        body.o_lg_light.o_lg_scheme_#{$name} {
-            @include lg-scheme-colors($fill, nth($colors, 3));
-            --lg-bg-image: linear-gradient(135deg, #{mix($fill, white, 12%)} 0%, #eef2ff 45%, #fdf2f8 100%);
-        }
+    body.o_lg_light.o_lg_scheme_#{$name} {
+        @include lg-light-scheme($name, $colors);
     }
 }
 

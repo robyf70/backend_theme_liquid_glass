@@ -163,3 +163,28 @@ registry.category("web_tour.tours").add("lg_scheme_failed_save_tour", {
         shown("teal"),
     ],
 });
+
+registry.category("web_tour.tours").add("lg_background_tour", {
+    steps: () => [
+        ...openPreferences(),
+        {
+            content: "Pick Gradient",
+            trigger: ".modal div[name='liquid_glass_background'] input[data-value='gradient']",
+            run: "click",
+        },
+        {
+            content: "The gradient is previewed",
+            trigger: "body.o_lg_gradient.o_lg_scheme_teal",
+        },
+        {
+            content: "Discard",
+            trigger: ".modal button[name='preference_cancel']",
+            run: "click",
+        },
+        noModal,
+        {
+            content: "The photo is back",
+            trigger: "body:not(.o_lg_gradient)",
+        },
+    ],
+});
