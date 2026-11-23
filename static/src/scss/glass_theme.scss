@@ -230,7 +230,7 @@ table {
 
 .form-check-input:checked,
 input[type="radio"]:checked {
-    background-color: $primary-color;
+    background-color: $primary-fill;
     border-color: $primary-color;
 }
 
@@ -451,9 +451,22 @@ a.text-primary:hover,
     border-color: $primary-color !important;
 }
 
-.o_tag.o_tag_color_0,
-.text-bg-action {
+.o_tag.o_tag_color_0 {
     background-color: $primary-color !important;
+
+    .o_tag_badge_text {
+        color: var(--lg-on-primary) !important;
+    }
+}
+
+.text-bg-action,
+.text-bg-primary {
+    background-color: $primary-fill !important;
+
+    // the global span/div colour would win otherwise
+    &, & * {
+        color: #fff !important;
+    }
 }
 
 .o_tag_badge_text, .o_event_title {
@@ -532,10 +545,6 @@ select.date_filter_values,
 
 .oe_subtotal_footer {
     border-top: transparent !important;
-}
-
-.text-bg-primary {
-    background-color: $primary-color !important;
 }
 
 .alert p, .alert {

@@ -53,7 +53,7 @@
                 .btn-outline-primary {
                        --btn-color: $primary-color !important;
                        &:hover {
-                        background-color: $primary-color !important;
+                        background-color: $primary-fill !important;
                        }
                  }
             }

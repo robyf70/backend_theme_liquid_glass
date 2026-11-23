@@ -1,5 +1,7 @@
 // Colours are CSS custom properties so each user's mode (res.users.liquid_glass_mode,
-// rendered as body.o_lg_light) can swap them at runtime. The SCSS names stay as aliases.
+// rendered as body.o_lg_light) and scheme (res.users.liquid_glass_scheme, rendered as
+// body.o_lg_scheme_<name>) can swap them at runtime. The SCSS names stay as aliases.
+// The base palette below is the teal scheme.
 :root {
     --lg-bg-light: rgba(255, 255, 255, 0.15);
     --lg-bg-medium: rgba(255, 255, 255, 0.10);
@@ -10,6 +12,8 @@
     --lg-border: rgba(255, 255, 255, 0.18);
     --lg-border-light: rgba(255, 255, 255, 0.25);
     --lg-primary: rgb(6, 190, 160);
+    --lg-primary-fill: #047865;
+    --lg-on-primary: #000000;
     --lg-primary-text: rgb(45, 212, 191);
     --lg-primary-gradient: linear-gradient(90deg, rgb(4, 120, 101), rgb(6, 100, 88));
     --lg-hover-bg: rgba(255, 255, 255, 0.18);
@@ -33,6 +37,8 @@ body.o_lg_light {
     --lg-border: rgba(15, 23, 42, 0.12);
     --lg-border-light: rgba(15, 23, 42, 0.18);
     --lg-primary: rgb(4, 128, 108);
+    --lg-primary-fill: #047865;
+    --lg-on-primary: #ffffff;
     --lg-primary-text: rgb(4, 110, 93);
     --lg-primary-gradient: linear-gradient(90deg, rgb(4, 128, 108), rgb(6, 112, 96));
     --lg-hover-bg: rgba(15, 23, 42, 0.07);
@@ -44,6 +50,45 @@ body.o_lg_light {
     --lg-btn-close-filter: none;
     --lg-bg-image: linear-gradient(135deg, #e0f2f1 0%, #eef2ff 45%, #fdf2f8 100%);
     --lg-bg-color: #eef2f7;
+}
+
+// Scheme: fill (under white text), accent on dark surfaces, accent on light surfaces.
+// Every value is at least 4.5:1, see tests/test_contrast.py.
+$lg-schemes: (
+    teal: (#047865, rgb(45, 212, 191), rgb(4, 110, 93)),
+    blue: (#1d4ed8, #93c5fd, #1d4ed8),
+    indigo: (#4338ca, #a5b4fc, #4338ca),
+    violet: (#6d28d9, #c4b5fd, #6d28d9),
+    fuchsia: (#a21caf, #f0abfc, #a21caf),
+    rose: (#be123c, #fda4af, #be123c),
+    orange: (#c2410c, #fb923c, #9a3412),
+    amber: (#b45309, #fbbf24, #92400e),
+    green: (#15803d, #4ade80, #166534),
+    cyan: (#0e7490, #22d3ee, #155e75),
+    slate: (#475569, #cbd5e1, #475569),
+);
+
+@mixin lg-scheme-colors($fill, $accent) {
+    --lg-primary: #{$accent};
+    --lg-primary-fill: #{$fill};
+    --lg-primary-text: #{$accent};
+    --lg-primary-gradient: linear-gradient(90deg, #{$fill}, #{mix(black, $fill, 15%)});
+    --lg-focus-ring: #{$accent};
+}
+
+@each $name, $colors in $lg-schemes {
+    @if $name != teal {
+        $fill: nth($colors, 1);
+
+        body.o_lg_scheme_#{$name} {
+            @include lg-scheme-colors($fill, nth($colors, 2));
+        }
+
+        body.o_lg_light.o_lg_scheme_#{$name} {
+            @include lg-scheme-colors($fill, nth($colors, 3));
+            --lg-bg-image: linear-gradient(135deg, #{mix($fill, white, 12%)} 0%, #eef2ff 45%, #fdf2f8 100%);
+        }
+    }
 }
 
 $glass-bg-light: var(--lg-bg-light);
@@ -60,6 +105,7 @@ $blur-medium: 35px;
 $blur-heavy: 40px;
 
 $primary-color: var(--lg-primary);
+$primary-fill: var(--lg-primary-fill);
 $primary-text: var(--lg-primary-text);
 $primary-gradient: var(--lg-primary-gradient);
 $hover-bg: var(--lg-hover-bg);
