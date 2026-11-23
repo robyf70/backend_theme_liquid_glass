@@ -47,12 +47,19 @@
             'backend_theme_liquid_glass/static/src/scss/kanban.scss',
             'backend_theme_liquid_glass/static/src/scss/modals.scss',
             'backend_theme_liquid_glass/static/src/scss/navbar.scss',
+            'backend_theme_liquid_glass/static/src/scss/scheme_field.scss',
+            'backend_theme_liquid_glass/static/src/js/palette.js',
             'backend_theme_liquid_glass/static/src/js/navbar_sidebar.js',
             'backend_theme_liquid_glass/static/src/js/theme_mode.js',
+            'backend_theme_liquid_glass/static/src/js/scheme_field.js',
+            'backend_theme_liquid_glass/static/src/xml/scheme_field.xml',
             'backend_theme_liquid_glass/static/src/xml/apps_sidebar.xml',
         ],
         'web.assets_backend_lazy': [
             'backend_theme_liquid_glass/static/src/js/canvas_text.js',
+        ],
+        'web.assets_tests': [
+            'backend_theme_liquid_glass/static/tests/tours/*.js',
         ],
     },
     'images': [

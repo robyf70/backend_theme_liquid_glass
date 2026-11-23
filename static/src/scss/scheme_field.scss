@@ -1,0 +1,32 @@
+// Copyright (C) 2026 Roberto Fichera
+
+.o_lg_swatch {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: middle;
+    border: 1px solid $glass-border-light;
+    border-radius: 50%;
+}
+
+@each $name, $colors in $lg-schemes {
+    .o_lg_swatch_#{$name} {
+        background-color: nth($colors, 1);
+    }
+}
+
+// Odoo removes the outline of its radios
+.o_field_liquid_glass_scheme .o_radio_input:focus-visible {
+    outline: 2px solid $focus-ring !important;
+    outline-offset: 2px;
+}
+
+.o_field_liquid_glass_scheme .o_horizontal {
+    display: inline-flex;
+    flex-wrap: wrap;
+
+    .o_radio_item {
+        flex: 0 0 auto;
+        margin-right: 1.5rem;
+    }
+}

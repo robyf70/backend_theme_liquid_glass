@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2026 Roberto Fichera -->
+<templates xml:space="preserve">
+
+    <t t-name="backend_theme_liquid_glass.SchemeField" t-inherit="web.RadioField" t-inherit-mode="primary">
+        <xpath expr="//label" position="before">
+            <span class="o_lg_swatch me-1" t-attf-class="o_lg_swatch_{{ item[0] }}" aria-hidden="true"/>
+        </xpath>
+    </t>
+
+</templates>
