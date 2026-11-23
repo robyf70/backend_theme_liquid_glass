@@ -73,9 +73,7 @@ msgstr "Modalità scura"
 #: model:ir.model.fields,help:backend_theme_liquid_glass.field_res_users__liquid_glass_background
 msgid "Dark mode background of the Liquid Glass backend theme for this user."
 msgstr ""
-"Sfondo della modalità scura del tema backend Liquid Glass per questo "
-"utente.Sfondo della modalità scura del tema backend Liquid Glass per questo "
-"utente."
+"Sfondo della modalità scura del tema backend Liquid Glass per questo utente."
 
 #. module: backend_theme_liquid_glass
 #: model:ir.model.fields,field_description:backend_theme_liquid_glass.field_res_users__display_name

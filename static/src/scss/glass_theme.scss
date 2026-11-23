@@ -443,7 +443,10 @@ a.text-primary:hover,
 .bg-primary,
 .o-we-table-menu {
     background: $primary-gradient !important;
-    color: #fff !important;
+
+    &, & * {
+        color: #fff !important;
+    }
 }
 
 .border-primary,

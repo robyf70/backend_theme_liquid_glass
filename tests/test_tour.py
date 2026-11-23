@@ -31,6 +31,13 @@ class TestTour(HttpCase):
             f'/odoo/action-base.action_res_users/{self.user.id}', 'lg_scheme_admin_tour', login='admin')
         self.assertEqual(self.user.liquid_glass_scheme, 'teal')
 
+    def test_scheme_own_form(self):
+        admin = self.env.ref('base.user_admin')
+        admin.liquid_glass_scheme = 'teal'
+        self.start_tour(
+            f'/odoo/action-base.action_res_users/{admin.id}', 'lg_scheme_own_form_tour', login='admin')
+        self.assertEqual(admin.liquid_glass_scheme, 'violet')
+
     def test_scheme_failed_save(self):
         ResUsers = self.registry['res.users']
         origin = ResUsers.write

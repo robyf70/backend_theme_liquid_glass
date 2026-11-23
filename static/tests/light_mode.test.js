@@ -37,6 +37,36 @@ test("text on the fill stays white in light mode", () => {
     ).toBe(WHITE);
 });
 
+test("text on the accent gradient stays white in light mode", () => {
+    for (const cls of ["bg-primary", "o_loading_indicator"]) {
+        expect(colorOf(`<div class="${cls}"><span>New</span></div>`, "span")).toBe(WHITE);
+    }
+});
+
+/** Colour the theme gives to an element while `.o_form_button_create` is hovered. */
+function hoverColorOf(el) {
+    let color;
+    for (const sheet of document.styleSheets) {
+        for (const rule of sheet.cssRules) {
+            if (
+                rule.selectorText?.includes(".o_form_button_create:hover") &&
+                el.matches(rule.selectorText.replaceAll(":hover", "")) &&
+                rule.style.getPropertyPriority("color")
+            ) {
+                color = rule.style.color;
+            }
+        }
+    }
+    return color;
+}
+
+test("the New button of forms is readable on hover", () => {
+    // a real :hover cannot be simulated: look at the rules
+    getFixture().innerHTML = `<button class="btn btn-outline-primary o_form_button_create"><span>New</span></button>`;
+    expect(hoverColorOf(getFixture().querySelector("button"))).toBe(WHITE);
+    expect(hoverColorOf(getFixture().querySelector("span"))).toBe(WHITE);
+});
+
 test("the app name follows the palette", () => {
     expect(
         colorOf(

@@ -1,8 +1,10 @@
 // Copyright (C) 2026 Roberto Fichera
 
 import { user } from "@web/core/user";
+import { patch } from "@web/core/utils/patch";
 import { registry } from "@web/core/registry";
 import { RadioField, radioField } from "@web/views/fields/radio/radio_field";
+import { FormController } from "@web/views/form/form_controller";
 import { onWillUnmount, useEffect } from "@odoo/owl";
 import { setBackground, setMode, setScheme } from "./palette";
 
@@ -12,36 +14,30 @@ const APPLY = {
     liquid_glass_background: setBackground,
 };
 
-// Last saved value of each preference, kept here because the field is unmounted and
-// mounted again with unsaved changes when the user moves between the pages of the form.
-const saved = {};
+function isOwnUser(record) {
+    return record.resModel === "res.users" && record.resId === user.userId;
+}
 
 /** Radio previewed live, when the record is the user's own. */
 export class PreviewRadioField extends RadioField {
     setup() {
         super.setup();
         useEffect(
-            (isOwn, value, dirty) => {
-                if (!isOwn || !value) {
-                    return;
+            (isOwn, value) => {
+                if (isOwn && value) {
+                    this.apply(value);
                 }
-                if (!dirty) {
-                    saved[this.props.name] = value;
-                }
-                this.apply(value);
             },
-            () => [this.isOwnRecord, this.value, this.props.record.dirty]
+            () => [isOwnUser(this.props.record), this.value]
         );
         onWillUnmount(() => {
-            const value = saved[this.props.name];
-            if (this.isOwnRecord && value) {
-                this.apply(this.props.record.dirty ? value : this.value);
+            // back to the saved value: the form may still hold an unsaved one
+            const { record, name } = this.props;
+            const saved = record._values[name];
+            if (isOwnUser(record) && saved) {
+                this.apply(saved);
             }
         });
-    }
-
-    get isOwnRecord() {
-        return this.props.record.resId === user.userId;
     }
 
     apply(value) {
@@ -64,3 +60,17 @@ export const schemeField = { ...previewRadioField, component: SchemeField };
 
 registry.category("fields").add("liquid_glass_preview", previewRadioField);
 registry.category("fields").add("liquid_glass_scheme", schemeField);
+
+// The form can be saved while the picker is on a hidden page, so not mounted.
+patch(FormController.prototype, {
+    async onRecordSaved(record) {
+        if (isOwnUser(record)) {
+            for (const [name, apply] of Object.entries(APPLY)) {
+                if (record.data[name]) {
+                    apply(record.data[name]);
+                }
+            }
+        }
+        return super.onRecordSaved(...arguments);
+    },
+});

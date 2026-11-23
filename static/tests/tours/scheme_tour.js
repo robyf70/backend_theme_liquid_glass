@@ -234,3 +234,48 @@ registry.category("web_tour.tours").add("lg_mode_tour", {
         },
     ],
 });
+
+function openPage(name) {
+    return {
+        content: `Open the ${name} page`,
+        trigger: `.o_notebook a[name='${name}']`,
+        run: "click",
+    };
+}
+
+registry.category("web_tour.tours").add("lg_scheme_own_form_tour", {
+    steps: () => [
+        shown("teal"),
+        {
+            content: "The form is dirty before the picker is shown",
+            trigger: "div[name='name'] input, div[name='name'] textarea",
+            run: "edit Somebody Else",
+        },
+        openPage("preferences"),
+        pick("violet"),
+        shown("violet"),
+        openPage("access_rights"),
+        shown("teal"),
+        {
+            content: "Discard from another page",
+            trigger: ".o_form_button_cancel",
+            run: "click",
+        },
+        {
+            content: "Discarded",
+            trigger: "body:not(:has(.o_form_button_cancel:visible))",
+        },
+        shown("teal"),
+        openPage("preferences"),
+        pick("violet"),
+        shown("violet"),
+        openPage("access_rights"),
+        shown("teal"),
+        {
+            content: "Save from another page",
+            trigger: ".o_form_button_save",
+            run: "click",
+        },
+        shown("violet"),
+    ],
+});

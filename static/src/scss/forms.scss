@@ -37,7 +37,7 @@
 
     .o_arrow_button.btn-primary,
     .o_arrow_button.o_arrow_button_current {
-        // same teal as the primary buttons: white text stays readable in both modes
+        // same fill as the primary buttons: white text stays readable in both modes
         background: $primary-gradient !important;
 
         &, & * {

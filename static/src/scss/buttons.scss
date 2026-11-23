@@ -16,7 +16,7 @@ input[type="submit"],
     backdrop-filter: blur($blur-light) saturate(180%) !important;
     border: none !important;
 
-    // white on teal in both modes (the global span/div colour would win otherwise)
+    // white on the fill in both modes (the global span/div colour would win otherwise)
     &, & * {
         color: #fff !important;
     }
@@ -59,6 +59,10 @@ input[type="submit"],
     &:hover {
         background: $primary-gradient !important;
         backdrop-filter: blur($blur-medium) saturate(180%) !important;
+
+        &, & * {
+            color: #fff !important;
+        }
     }
 }
 
