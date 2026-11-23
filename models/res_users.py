@@ -13,10 +13,39 @@ class ResUsers(models.Model):
         help="Liquid Glass backend theme appearance for this user.",
     )
 
+    liquid_glass_scheme = fields.Selection(
+        [
+            ('teal', "Teal"),
+            ('blue', "Blue"),
+            ('indigo', "Indigo"),
+            ('violet', "Violet"),
+            ('fuchsia', "Fuchsia"),
+            ('rose', "Rose"),
+            ('orange', "Orange"),
+            ('amber', "Amber"),
+            ('green', "Green"),
+            ('cyan', "Cyan"),
+            ('slate', "Slate"),
+        ],
+        string="Color Scheme",
+        default='teal',
+        required=True,
+        help="Accent colors of the Liquid Glass backend theme for this user.",
+    )
+
     @property
     def SELF_READABLE_FIELDS(self):
-        return super().SELF_READABLE_FIELDS + ['liquid_glass_mode']
+        return super().SELF_READABLE_FIELDS + ['liquid_glass_mode', 'liquid_glass_scheme']
 
     @property
     def SELF_WRITEABLE_FIELDS(self):
-        return super().SELF_WRITEABLE_FIELDS + ['liquid_glass_mode']
+        return super().SELF_WRITEABLE_FIELDS + ['liquid_glass_mode', 'liquid_glass_scheme']
+
+    def _liquid_glass_body_classes(self):
+        """Body classes of the web client for this user's theme preferences."""
+        self.ensure_one()
+        classes = ['o_web_client']
+        if self.liquid_glass_mode == 'light':
+            classes.append('o_lg_light')
+        classes.append(f'o_lg_scheme_{self.liquid_glass_scheme}')
+        return ' '.join(classes)
