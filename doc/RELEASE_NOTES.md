@@ -49,4 +49,4 @@
 #### FIX
 - White text on accent backgrounds (button hover, badges, checked inputs) is at least 4.5:1 (new `--lg-primary-fill`)
 - Tags without a colour are readable in light mode (new `--lg-on-primary`)
-- Graph text is readable in light mode
+- Graph text, the app name in the navbar and the current status bar step are readable in light mode

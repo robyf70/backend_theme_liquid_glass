@@ -16,6 +16,7 @@
     border-bottom: transparent !important;
     // Odoo paints every navbar entry (menus, debug, systray icons) through these;
     // Enterprise sets them to gray-900, unreadable on the glass.
+    --NavBar-brand-color: #{$text-white};
     --NavBar-entry-color: #{$text-white};
     --NavBar-entry-color--hover: #{$text-white};
     --NavBar-entry-color--active: #{$text-white};
