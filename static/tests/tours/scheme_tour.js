@@ -277,5 +277,9 @@ registry.category("web_tour.tours").add("lg_scheme_own_form_tour", {
             run: "click",
         },
         shown("violet"),
+        {
+            content: "The save is over",
+            trigger: ".o_form_saved:not(:has(.o_form_dirty))",
+        },
     ],
 });
