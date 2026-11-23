@@ -8,7 +8,7 @@ class ResUsers(models.Model):
     _inherit = 'res.users'
 
     liquid_glass_mode = fields.Selection(
-        [('dark', "Dark"), ('light', "Light")],
+        [('dark', "Dark"), ('light', "Light"), ('auto', "Auto")],
         string="Theme Mode",
         default='dark',
         required=True,
@@ -29,7 +29,7 @@ class ResUsers(models.Model):
             ('cyan', "Cyan"),
             ('slate', "Slate"),
         ],
-        string="Color Scheme",
+        string="Theme Colors",
         default='teal',
         required=True,
         help="Accent colors of the Liquid Glass backend theme for this user.",
@@ -56,6 +56,8 @@ class ResUsers(models.Model):
         classes = ['o_web_client']
         if self.liquid_glass_mode == 'light':
             classes.append('o_lg_light')
+        elif self.liquid_glass_mode == 'auto':
+            classes.append('o_lg_auto')
         if self.liquid_glass_background == 'gradient':
             classes.append('o_lg_gradient')
         classes.append(f'o_lg_scheme_{self.liquid_glass_scheme}')

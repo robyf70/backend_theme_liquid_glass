@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-23 15:48+0000\n"
+"POT-Creation-Date: 2026-11-23 16:01+0000\n"
 "PO-Revision-Date: 2026-11-19 11:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -33,6 +33,16 @@ msgid "Applications"
 msgstr "Applicazioni"
 
 #. module: backend_theme_liquid_glass
+#: model:ir.model.fields.selection,name:backend_theme_liquid_glass.selection__res_users__liquid_glass_mode__auto
+msgid "Auto"
+msgstr "Automatico"
+
+#. module: backend_theme_liquid_glass
+#: model:ir.model.fields,field_description:backend_theme_liquid_glass.field_res_users__liquid_glass_background
+msgid "Background"
+msgstr "Sfondo"
+
+#. module: backend_theme_liquid_glass
 #: model:ir.model.fields.selection,name:backend_theme_liquid_glass.selection__res_users__liquid_glass_scheme__blue
 msgid "Blue"
 msgstr "Blu"
@@ -42,11 +52,6 @@ msgstr "Blu"
 #: code:addons/backend_theme_liquid_glass/static/src/xml/apps_sidebar.xml:0
 msgid "Close"
 msgstr "Chiudi"
-
-#. module: backend_theme_liquid_glass
-#: model:ir.model.fields,field_description:backend_theme_liquid_glass.field_res_users__liquid_glass_scheme
-msgid "Color Scheme"
-msgstr "Schema colori"
 
 #. module: backend_theme_liquid_glass
 #: model:ir.model.fields.selection,name:backend_theme_liquid_glass.selection__res_users__liquid_glass_scheme__cyan
@@ -65,6 +70,14 @@ msgid "Dark Mode"
 msgstr "Modalità scura"
 
 #. module: backend_theme_liquid_glass
+#: model:ir.model.fields,help:backend_theme_liquid_glass.field_res_users__liquid_glass_background
+msgid "Dark mode background of the Liquid Glass backend theme for this user."
+msgstr ""
+"Sfondo della modalità scura del tema backend Liquid Glass per questo "
+"utente.Sfondo della modalità scura del tema backend Liquid Glass per questo "
+"utente."
+
+#. module: backend_theme_liquid_glass
 #: model:ir.model.fields,field_description:backend_theme_liquid_glass.field_res_users__display_name
 msgid "Display Name"
 msgstr "Nome visualizzato"
@@ -73,6 +86,11 @@ msgstr "Nome visualizzato"
 #: model:ir.model.fields.selection,name:backend_theme_liquid_glass.selection__res_users__liquid_glass_scheme__fuchsia
 msgid "Fuchsia"
 msgstr "Fucsia"
+
+#. module: backend_theme_liquid_glass
+#: model:ir.model.fields.selection,name:backend_theme_liquid_glass.selection__res_users__liquid_glass_background__gradient
+msgid "Gradient"
+msgstr "Sfumatura"
 
 #. module: backend_theme_liquid_glass
 #: model:ir.model.fields.selection,name:backend_theme_liquid_glass.selection__res_users__liquid_glass_scheme__green
@@ -111,6 +129,11 @@ msgid "Orange"
 msgstr "Arancione"
 
 #. module: backend_theme_liquid_glass
+#: model:ir.model.fields.selection,name:backend_theme_liquid_glass.selection__res_users__liquid_glass_background__photo
+msgid "Photo"
+msgstr "Foto"
+
+#. module: backend_theme_liquid_glass
 #: model:ir.model.fields.selection,name:backend_theme_liquid_glass.selection__res_users__liquid_glass_scheme__rose
 msgid "Rose"
 msgstr "Rosa"
@@ -124,6 +147,11 @@ msgstr "Ardesia"
 #: model:ir.model.fields.selection,name:backend_theme_liquid_glass.selection__res_users__liquid_glass_scheme__teal
 msgid "Teal"
 msgstr "Verde acqua"
+
+#. module: backend_theme_liquid_glass
+#: model:ir.model.fields,field_description:backend_theme_liquid_glass.field_res_users__liquid_glass_scheme
+msgid "Theme Colors"
+msgstr "Colori tema"
 
 #. module: backend_theme_liquid_glass
 #: model:ir.model.fields,field_description:backend_theme_liquid_glass.field_res_users__liquid_glass_mode

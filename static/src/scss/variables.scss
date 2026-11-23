@@ -1,5 +1,5 @@
 // Colours are CSS custom properties so each user's mode (res.users.liquid_glass_mode,
-// rendered as body.o_lg_light) and scheme (res.users.liquid_glass_scheme, rendered as
+// rendered as body.o_lg_light or body.o_lg_auto) and scheme (res.users.liquid_glass_scheme, rendered as
 // body.o_lg_scheme_<name>) can swap them at runtime. The SCSS names stay as aliases.
 // The base palette below is the teal scheme.
 :root {
@@ -27,7 +27,7 @@
     --lg-bg-color: #000511;
 }
 
-body.o_lg_light {
+@mixin lg-light {
     --lg-bg-light: rgba(255, 255, 255, 0.62);
     --lg-bg-medium: rgba(255, 255, 255, 0.52);
     --lg-bg-dark: rgba(255, 255, 255, 0.42);
@@ -50,6 +50,17 @@ body.o_lg_light {
     --lg-btn-close-filter: none;
     --lg-bg-image: linear-gradient(135deg, #e0f2f1 0%, #eef2ff 45%, #fdf2f8 100%);
     --lg-bg-color: #eef2f7;
+}
+
+body.o_lg_light {
+    @include lg-light;
+}
+
+// Auto: light when the operating system is
+@media (prefers-color-scheme: light) {
+    body.o_lg_auto {
+        @include lg-light;
+    }
 }
 
 // Scheme: fill (under white text), accent on dark surfaces, accent on light surfaces.
@@ -106,6 +117,12 @@ $lg-schemes: (
 
     body.o_lg_light.o_lg_scheme_#{$name} {
         @include lg-light-scheme($name, $colors);
+    }
+
+    @media (prefers-color-scheme: light) {
+        body.o_lg_auto.o_lg_scheme_#{$name} {
+            @include lg-light-scheme($name, $colors);
+        }
     }
 }
 

@@ -30,12 +30,13 @@ class TestPreferences(HttpCase):
         schemes = [value for value, _label in self.user._fields['liquid_glass_scheme'].selection]
         self.assertEqual(len(schemes), 11)
         for scheme in schemes:
-            for mode in ('dark', 'light'):
+            for mode in ('dark', 'light', 'auto'):
                 with self.subTest(scheme=scheme, mode=mode):
                     self.user.write({'liquid_glass_scheme': scheme, 'liquid_glass_mode': mode})
                     classes = self.user._liquid_glass_body_classes().split()
                     self.assertIn(f'o_lg_scheme_{scheme}', classes)
                     self.assertEqual('o_lg_light' in classes, mode == 'light')
+                    self.assertEqual('o_lg_auto' in classes, mode == 'auto')
 
     def test_background(self):
         self.assertEqual(self.user.liquid_glass_background, 'photo')

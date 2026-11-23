@@ -21,7 +21,7 @@
 #############################################################################
 {
     'name': 'Liquid Glass Backend Theme',
-    'version': '19.0.1.2.0',
+    'version': '19.0.1.3.0',
     'category': 'Theme/Backend',
     'summary': 'Modern glassmorphism backend theme for Odoo',
     'description': """

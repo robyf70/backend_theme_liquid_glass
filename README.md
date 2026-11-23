@@ -14,8 +14,9 @@ A glassmorphism backend theme for Odoo 19 (Community and Enterprise), with per-u
 
 - Glass navbar, control panel, forms, lists, kanban, dialogs and chatter.
 - Apps sidebar opened from the ☰ button in the navbar.
-- **Light / Dark mode per user**: *My Preferences > Theme Mode*, or *Light Mode* / *Dark Mode* in the user menu.
-- **Color schemes per user**: Teal (default), Blue, Indigo, Violet, Fuchsia, Rose, Orange, Amber, Green, Cyan, Slate, in *My Preferences > Color Scheme*, previewed live. Every scheme keeps text at 4.5:1 or more in both modes.
+- **Light / Dark mode per user**: *My Preferences > Theme Mode*, or *Light Mode* / *Dark Mode* in the user menu. *Auto* follows the operating system.
+- **Color schemes per user**: Teal (default), Blue, Indigo, Violet, Fuchsia, Rose, Orange, Amber, Green, Cyan, Slate, in *My Preferences > Theme Colors*, previewed live. Every scheme keeps text at 4.5:1 or more in both modes.
+- **Background per user**: in dark mode, *Photo* (default) or a *Gradient* tinted with the scheme. All three preferences are previewed live.
 - **Accessibility**: visible keyboard focus; the apps sidebar is a modal dialog (labelled, unreachable while closed, focus moved in and back, Escape to close, Tab kept inside); readable focused app and search on the Enterprise home menu; reduced-motion support.
 
 ## Changes from the Cybrosys original
@@ -40,7 +41,7 @@ Put this directory on the Odoo `addons_path` and install *Liquid Glass Backend T
 
 ## Configuration
 
-Each user picks *Dark* (default) or *Light* in *My Preferences > Theme Mode*, and a color scheme in *My Preferences > Color Scheme*.
+Each user picks *Dark* (default), *Light* or *Auto* in *My Preferences > Theme Mode*, a color scheme in *My Preferences > Theme Colors* and a dark mode background in *My Preferences > Background*.
 
 ## License
 

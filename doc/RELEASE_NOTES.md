@@ -50,3 +50,11 @@
 - White text on accent backgrounds (button hover, badges, checked inputs) is at least 4.5:1 (new `--lg-primary-fill`)
 - Tags without a colour are readable in light mode (new `--lg-on-primary`)
 - Graph text, the app name in the navbar and the current status bar step are readable in light mode
+
+#### 23.11.2026
+
+#### Version 19.0.1.3.0
+#### ADD
+- Theme Mode *Auto*: light or dark following the operating system (body class `o_lg_auto`, no JavaScript needed for the colours)
+- `res.users.liquid_glass_background`: photo or scheme-tinted gradient background in dark mode (body class `o_lg_gradient`)
+- The three preferences are previewed live

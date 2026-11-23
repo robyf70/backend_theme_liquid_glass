@@ -17,6 +17,10 @@ class TestTour(HttpCase):
         self.start_tour('/odoo', 'lg_scheme_tour', login='lg_user')
         self.assertEqual(self.user.liquid_glass_scheme, 'blue')
 
+    def test_mode(self):
+        self.start_tour('/odoo', 'lg_mode_tour', login='lg_user')
+        self.assertEqual(self.user.liquid_glass_mode, 'auto')
+
     def test_background(self):
         self.start_tour('/odoo', 'lg_background_tour', login='lg_user')
         self.assertEqual(self.user.liquid_glass_background, 'photo')

@@ -4,9 +4,10 @@ import { user } from "@web/core/user";
 import { registry } from "@web/core/registry";
 import { RadioField, radioField } from "@web/views/fields/radio/radio_field";
 import { onWillUnmount, useEffect } from "@odoo/owl";
-import { setBackground, setScheme } from "./palette";
+import { setBackground, setMode, setScheme } from "./palette";
 
 const APPLY = {
+    liquid_glass_mode: setMode,
     liquid_glass_scheme: setScheme,
     liquid_glass_background: setBackground,
 };

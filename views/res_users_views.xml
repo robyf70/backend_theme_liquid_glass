@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='other_preferences']" position="inside">
-                <field name="liquid_glass_mode" widget="radio" options="{'horizontal': true}" readonly="0"/>
+                <field name="liquid_glass_mode" widget="liquid_glass_preview" options="{'horizontal': true}" readonly="0"/>
                 <field name="liquid_glass_scheme" widget="liquid_glass_scheme" options="{'horizontal': true}" readonly="0"/>
                 <field name="liquid_glass_background" widget="liquid_glass_preview" options="{'horizontal': true}" readonly="0"/>
             </xpath>
@@ -19,7 +19,7 @@
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='other_preferences']" position="inside">
-                <field name="liquid_glass_mode" widget="radio" options="{'horizontal': true}" invisible="share"/>
+                <field name="liquid_glass_mode" widget="liquid_glass_preview" options="{'horizontal': true}" invisible="share"/>
                 <field name="liquid_glass_scheme" widget="liquid_glass_scheme" options="{'horizontal': true}" invisible="share"/>
                 <field name="liquid_glass_background" widget="liquid_glass_preview" options="{'horizontal': true}" invisible="share"/>
             </xpath>

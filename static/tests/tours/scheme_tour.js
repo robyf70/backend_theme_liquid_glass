@@ -188,3 +188,49 @@ registry.category("web_tour.tours").add("lg_background_tour", {
         },
     ],
 });
+
+function pickMode(mode) {
+    return {
+        content: `Pick ${mode}`,
+        trigger: `.modal div[name='liquid_glass_mode'] input[data-value='${mode}']`,
+        run: "click",
+    };
+}
+
+registry.category("web_tour.tours").add("lg_mode_tour", {
+    steps: () => [
+        ...openPreferences(),
+        pickMode("light"),
+        {
+            content: "Light is previewed",
+            trigger: "body.o_lg_light:not(.o_lg_auto)",
+        },
+        {
+            content: "Discard",
+            trigger: ".modal button[name='preference_cancel']",
+            run: "click",
+        },
+        noModal,
+        {
+            content: "Dark is back",
+            trigger: "body:not(.o_lg_light):not(.o_lg_auto)",
+        },
+        ...openPreferences(),
+        pickMode("auto"),
+        {
+            content: "Auto is previewed",
+            trigger: "body.o_lg_auto:not(.o_lg_light)",
+        },
+        {
+            content: "Save",
+            trigger: ".modal button[name='preference_save']",
+            run: "click",
+            expectUnloadPage: true,
+        },
+        noModal,
+        {
+            content: "Auto is saved",
+            trigger: "body.o_lg_auto",
+        },
+    ],
+});

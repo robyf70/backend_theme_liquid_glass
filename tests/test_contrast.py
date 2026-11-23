@@ -189,6 +189,23 @@ class TestContrast(TransactionCase):
                 self.assertIn('--lg-bg-image', self.rules[light])
                 self.assertLess(self.css.index(dark), self.css.index(light))
 
+    def test_auto_is_light_when_the_system_is(self):
+        block = r'@media \(prefers-color-scheme: light\) \{((?:[^{}]+\{[^{}]*\}\s*)+)\}'
+        auto = {}
+        for content in re.findall(block, self.css):
+            auto.update(self.parse(content))
+        self.assertEqual(auto['body.o_lg_auto'], self.rules['body.o_lg_light'])
+        for scheme in self.schemes:
+            with self.subTest(scheme=scheme):
+                self.assertEqual(
+                    auto[f'body.o_lg_auto.o_lg_scheme_{scheme}'],
+                    self.rules[f'body.o_lg_light.o_lg_scheme_{scheme}'])
+                dark = f'body.o_lg_gradient.o_lg_scheme_{scheme}'
+                self.assertLess(
+                    self.css.index(dark), self.css.index(f'body.o_lg_auto.o_lg_scheme_{scheme}'))
+        # and dark otherwise: nothing about auto outside the media query
+        self.assertNotIn('o_lg_auto', re.sub(block, '', self.css))
+
     def test_teal_is_unchanged(self):
         for light, expected, on_primary in ((False, TEAL_DARK, '#000000'), (True, TEAL_LIGHT, '#ffffff')):
             palette = self.palette('teal', light)
